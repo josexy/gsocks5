@@ -1,5 +1,4 @@
 listen_addr: 0.0.0.0:10086
-log_file: ./logs/log.txt
 socks_method:
   - username
   - none
