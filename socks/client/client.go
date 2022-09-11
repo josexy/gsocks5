@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/josexy/gsocks5/socks/auth"
+	"github.com/josexy/gsocks5/socks/connection"
 	"github.com/josexy/gsocks5/socks/constant"
-	"github.com/josexy/gsocks5/socks/internal/connection"
-	"github.com/josexy/gsocks5/socks/internal/packet"
+	"github.com/josexy/gsocks5/socks/packet"
 	"github.com/josexy/gsocks5/socks/sc"
 	"github.com/josexy/gsocks5/util"
 )

@@ -10,9 +10,9 @@ import (
 	"time"
 
 	"github.com/josexy/gsocks5/logx"
+	"github.com/josexy/gsocks5/socks/connection"
 	"github.com/josexy/gsocks5/socks/constant"
-	"github.com/josexy/gsocks5/socks/internal/connection"
-	"github.com/josexy/gsocks5/socks/internal/packet"
+	"github.com/josexy/gsocks5/socks/packet"
 )
 
 func (s *Socks5Server) handleCmdConnect(rw *bufio.ReadWriter, target string, src net.Conn) error {

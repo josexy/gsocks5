@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"github.com/josexy/gsocks5/socks/constant"
-	"github.com/josexy/gsocks5/socks/internal/packet"
+	"github.com/josexy/gsocks5/socks/packet"
 )
 
 type tcpConnWrapper struct {
