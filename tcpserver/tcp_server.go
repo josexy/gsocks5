@@ -7,7 +7,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/josexy/gsocks5/logx"
+	"github.com/josexy/logx"
 )
 
 var (
@@ -16,9 +16,7 @@ var (
 	LocalAddrContextKey = &contextKey{name: "tcp-addr"}
 )
 
-var defaultServerOptions = serverOptions{
-	Logger: logx.DiscardLogger,
-}
+var defaultServerOptions = serverOptions{}
 
 type contextKey struct {
 	name string
@@ -98,7 +96,7 @@ func (srv *TcpServer) ListenAndServe() error {
 		return ErrServerClosed
 	}
 	if srv.Addr == "" {
-		srv.Opts.Logger.Fatal("tcp server need address")
+		logx.Fatal("tcp server need address")
 	}
 	ln, err := net.Listen("tcp", srv.Addr)
 	if err != nil {

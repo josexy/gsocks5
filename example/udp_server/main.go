@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/josexy/gsocks5/logx"
+	"github.com/josexy/logx"
 )
 
 func main() {

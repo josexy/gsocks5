@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/josexy/gsocks5/logx"
 	"github.com/josexy/gsocks5/socks"
+	"github.com/josexy/logx"
 )
 
 func main() {

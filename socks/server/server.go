@@ -8,12 +8,12 @@ import (
 	"time"
 
 	"github.com/josexy/gsocks5/config"
-	"github.com/josexy/gsocks5/logx"
 	"github.com/josexy/gsocks5/socks/constant"
 	"github.com/josexy/gsocks5/socks/packet"
 	"github.com/josexy/gsocks5/socks/sc"
 	"github.com/josexy/gsocks5/tcpserver"
 	"github.com/josexy/gsocks5/udpserver"
+	"github.com/josexy/logx"
 )
 
 type Socks5Server struct {
@@ -23,12 +23,12 @@ type Socks5Server struct {
 	natM           *sc.UdpNATMap
 }
 
-func NewSocks5Server(addr string, logger logx.Logger) (svr *Socks5Server) {
+func NewSocks5Server(addr string) (svr *Socks5Server) {
 	svr = &Socks5Server{
 		targetAddrChan: make(chan string, 128),
 		natM:           sc.NewUdpNATMap(time.Second * 20),
 	}
-	svr.server = tcpserver.NewTcpServer(addr, svr, tcpserver.WithLogger(logger))
+	svr.server = tcpserver.NewTcpServer(addr, svr)
 	svr.udpServer, _ = udpserver.NewUdpServer(addr, svr)
 	return
 }
@@ -46,18 +46,18 @@ func (s *Socks5Server) Close() error {
 func (s *Socks5Server) ServeTCP(ctx context.Context, conn net.Conn) {
 	rw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
 	if err := s.handleNegotiate(rw); err != nil {
-		s.server.Opts.Logger.Error("%s", err.Error())
+		logx.Error("%s", err.Error())
 		return
 	}
 	if err := s.handleRequest(rw, conn); err != nil {
-		s.server.Opts.Logger.Error("%s", err.Error())
+		logx.Error("%s", err.Error())
 		return
 	}
 }
 
 func (s *Socks5Server) ServeUDP(ctx context.Context, conn *net.UDPConn) {
 	if err := s.serveUDP(conn); err != nil {
-		s.server.Opts.Logger.Error("%s", err.Error())
+		logx.Error("%s", err.Error())
 	}
 }
 

@@ -37,12 +37,11 @@ code example
 package main
 
 import (
-	"github.com/josexy/gsocks5/logx"
 	"github.com/josexy/gsocks5/socks"
 )
 
 func main() {
-	svr := socks.NewSocks5Server(":10086", logx.StdLoggerX)
+	svr := socks.NewSocks5Server(":10086")
 	defer svr.Close()
 	svr.Start()
 }
@@ -74,7 +73,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/josexy/gsocks5/logx"
 	"github.com/josexy/gsocks5/socks"
 )
 
@@ -94,7 +92,6 @@ func main() {
 	}
 	resp, err := cli.Get("https://www.google.com")
 	if err != nil {
-		logx.ErrorBy(err)
 		return
 	}
 	defer resp.Body.Close()

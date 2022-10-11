@@ -5,10 +5,11 @@ import (
 	"io"
 	"net"
 
-	"github.com/josexy/gsocks5/logx"
+	"github.com/fatih/color"
 	"github.com/josexy/gsocks5/socks/connection"
 	"github.com/josexy/gsocks5/socks/constant"
 	"github.com/josexy/gsocks5/socks/packet"
+	"github.com/josexy/logx"
 )
 
 func (s *Socks5Server) serveUDP(conn *net.UDPConn) error {
@@ -51,9 +52,9 @@ func (s *Socks5Server) serveUDP(conn *net.UDPConn) error {
 func (s *Socks5Server) handleCmdUdpAssociate(rw *bufio.ReadWriter, target string, src net.Conn) error {
 	bindAddr := s.udpServer.LocalAddr()
 
-	s.server.Opts.Logger.Info("[udp] local: [%s] <-> remote: [%s]",
-		logx.Green(bindAddr.String()),
-		logx.Yellow(target))
+	logx.Info("[udp] local: [%s] <-> remote: [%s]",
+		color.GreenString(bindAddr.String()),
+		color.YellowString(target))
 
 	packet.SerializeTo(rw, &packet.SocksResponse{
 		ReplayCode: constant.Succeed,

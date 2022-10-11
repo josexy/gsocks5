@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/fatih/color v1.13.0
+	github.com/josexy/logx v0.0.0-20220926150539-1d2f1e938ae6
 	gopkg.in/yaml.v3 v3.0.1
 )
 
