@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/josexy/gsocks5/socks"
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 func main() {
@@ -28,7 +28,7 @@ func main() {
 	}
 	resp, err := cli.Get("http://www.baidu.com")
 	if err != nil {
-		logx.ErrorBy(err)
+		util.Logger.ErrorBy(err)
 		return
 	}
 	defer resp.Body.Close()

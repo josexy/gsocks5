@@ -13,7 +13,7 @@ import (
 	"github.com/josexy/gsocks5/socks/sc"
 	"github.com/josexy/gsocks5/tcpserver"
 	"github.com/josexy/gsocks5/udpserver"
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 type Socks5Server struct {
@@ -46,18 +46,18 @@ func (s *Socks5Server) Close() error {
 func (s *Socks5Server) ServeTCP(ctx context.Context, conn net.Conn) {
 	rw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
 	if err := s.handleNegotiate(rw); err != nil {
-		logx.Error("%s", err.Error())
+		util.Logger.ErrorBy(err)
 		return
 	}
 	if err := s.handleRequest(rw, conn); err != nil {
-		logx.Error("%s", err.Error())
+		util.Logger.ErrorBy(err)
 		return
 	}
 }
 
 func (s *Socks5Server) ServeUDP(ctx context.Context, conn *net.UDPConn) {
 	if err := s.serveUDP(conn); err != nil {
-		logx.Error("%s", err.Error())
+		util.Logger.ErrorBy(err)
 	}
 }
 

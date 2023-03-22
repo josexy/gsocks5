@@ -13,7 +13,7 @@ import (
 	"github.com/josexy/gsocks5/socks/connection"
 	"github.com/josexy/gsocks5/socks/constant"
 	"github.com/josexy/gsocks5/socks/packet"
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 func (s *Socks5Server) handleCmdConnect(rw *bufio.ReadWriter, target string, src net.Conn) error {
@@ -43,7 +43,7 @@ func (s *Socks5Server) dialTCP(target string) (conn net.Conn, bindAddr string, b
 		bindAddr = addr.IP.String()
 		bindPort = addr.Port
 	}
-	logx.Info("[tcp] local: [%s] <-> remote: [%s]/[%s]",
+	util.Logger.Infof("[tcp] local: [%s] <-> remote: [%s]/[%s]",
 		color.GreenString(net.JoinHostPort(bindAddr, strconv.Itoa(bindPort))),
 		color.YellowString(target),
 		color.RedString(conn.RemoteAddr().String()))

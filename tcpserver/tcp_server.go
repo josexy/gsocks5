@@ -7,7 +7,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 var (
@@ -96,7 +96,7 @@ func (srv *TcpServer) ListenAndServe() error {
 		return ErrServerClosed
 	}
 	if srv.Addr == "" {
-		logx.Fatal("tcp server need address")
+		util.Logger.Fatal("tcp server need address")
 	}
 	ln, err := net.Listen("tcp", srv.Addr)
 	if err != nil {

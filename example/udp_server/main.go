@@ -4,30 +4,30 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 func main() {
 	addr, err := net.ResolveUDPAddr("udp", ":2003")
 	if err != nil {
-		logx.ErrorBy(err)
+		util.Logger.ErrorBy(err)
 		return
 	}
 	conn, err := net.ListenUDP("udp", addr)
 	if err != nil {
-		logx.ErrorBy(err)
+		util.Logger.ErrorBy(err)
 		return
 	}
 	defer conn.Close()
 
-	logx.Info("remote addr: %v", conn.RemoteAddr())
-	logx.Info("local addr: %v", conn.LocalAddr())
+	util.Logger.Infof("remote addr: %v", conn.RemoteAddr())
+	util.Logger.Infof("local addr: %v", conn.LocalAddr())
 
 	buf := make([]byte, 65535)
 	for {
 		n, addr, err := conn.ReadFrom(buf)
 		if err != nil {
-			logx.ErrorBy(err)
+			util.Logger.ErrorBy(err)
 			return
 		}
 		conn.WriteTo(buf[:n], addr)

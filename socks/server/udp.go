@@ -9,7 +9,7 @@ import (
 	"github.com/josexy/gsocks5/socks/connection"
 	"github.com/josexy/gsocks5/socks/constant"
 	"github.com/josexy/gsocks5/socks/packet"
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 func (s *Socks5Server) serveUDP(conn *net.UDPConn) error {
@@ -52,7 +52,7 @@ func (s *Socks5Server) serveUDP(conn *net.UDPConn) error {
 func (s *Socks5Server) handleCmdUdpAssociate(rw *bufio.ReadWriter, target string, src net.Conn) error {
 	bindAddr := s.udpServer.LocalAddr()
 
-	logx.Info("[udp] local: [%s] <-> remote: [%s]",
+	util.Logger.Infof("[udp] local: [%s] <-> remote: [%s]",
 		color.GreenString(bindAddr.String()),
 		color.YellowString(target))
 

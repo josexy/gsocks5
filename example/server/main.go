@@ -11,7 +11,7 @@ import (
 	"github.com/josexy/gsocks5/config"
 	"github.com/josexy/gsocks5/socks"
 	"github.com/josexy/gsocks5/tcpserver"
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 func _main() {
@@ -32,12 +32,12 @@ func main() {
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
 
 	svr := socks.NewSocks5Server(config.Cfg.ListenAddr)
-	logx.Info("start socks server: %s", config.Cfg.ListenAddr)
+	util.Logger.Infof("start socks server: %s", config.Cfg.ListenAddr)
 
 	done := make(chan struct{})
 	go func() {
 		if err := svr.Start(); err != nil && err != tcpserver.ErrServerClosed {
-			logx.ErrorBy(err)
+			util.Logger.ErrorBy(err)
 		}
 		done <- struct{}{}
 	}()
@@ -51,8 +51,8 @@ func main() {
 
 	select {
 	case <-ctx.Done():
-		logx.Warn("socks5 server close timeout")
+		util.Logger.Warn("socks5 server close timeout")
 	case <-done:
-		logx.Info("socks5 server closed")
+		util.Logger.Warn("socks5 server closed")
 	}
 }

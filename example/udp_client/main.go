@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/josexy/gsocks5/socks"
-	"github.com/josexy/logx"
+	"github.com/josexy/gsocks5/util"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 
 	conn, err := proxyCli.DialUDP(context.Background(), "127.0.0.1:2003")
 	if err != nil {
-		logx.ErrorBy(err)
+		util.Logger.ErrorBy(err)
 		return
 	}
 	done := make(chan error)
@@ -36,10 +36,10 @@ func main() {
 		conn.SetWriteDeadline(time.Now().Add(time.Second * 2))
 		_, err = conn.Write([]byte("hello server " + time.Now().String()))
 		if err != nil {
-			logx.ErrorBy(err)
+			util.Logger.ErrorBy(err)
 			return
 		}
 	}
 	err = <-done
-	logx.ErrorBy(err)
+	util.Logger.ErrorBy(err)
 }
